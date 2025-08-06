@@ -1,0 +1,30 @@
+[window]
+opacity = 0.90
+startup_mode = "Maximized"
+
+[window.dimensions]
+columns = 80
+lines = 26
+
+# [window.position]
+# x = 160
+# y = 180
+
+[window.padding]
+x = 5
+y = 2
+
+[font]
+size = 14
+
+[font.normal]
+family = "Cousine Nerd Font"
+
+[cursor]
+blink_interval = 500
+blink_timeout = 0
+
+[cursor.style]
+shape = "Block"
+blinking = "On"
+
