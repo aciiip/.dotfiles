@@ -4,11 +4,8 @@ Acip Freshbone dotfiles
 
 ## Requirements
 
-### Git
-
-### Stow
-
-<https://www.gnu.org/software/stow>
+- Git
+- GNU Stow
 
 ## Installation
 
