@@ -19,6 +19,9 @@ return {
         win_options = {
           signcolumn = "yes:1",
         },
+        view_options = {
+          show_hidden = true
+        }
       })
       -- vim.keymap.set("n", "<leader>oo", "<cmd>Oil<CR>", { silent = true, noremap = true, desc = "Open [O]il"});
       vim.keymap.set(
