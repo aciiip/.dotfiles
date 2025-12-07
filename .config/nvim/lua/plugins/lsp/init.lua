@@ -76,7 +76,11 @@ return {
       pylsp = require("plugins.lsp.servers.pylsp"),
       html = require("plugins.lsp.servers.html"),
       cssls = {},
-      -- tailwindcss = {},
+      tailwindcss = {
+        -- The presence of tailwind.config.js will trigger the Tailwind CSS language server to start for the current project.
+        -- Including package.json and .git provides additional common project root indicators, ensuring the LSP starts correctly in various project structures.
+        root_dir = require("lspconfig.util").root_pattern("tailwind.config.js", "package.json", ".git")
+      },
       eslint = {},
       dockerls = {},
       sqlls = {},
