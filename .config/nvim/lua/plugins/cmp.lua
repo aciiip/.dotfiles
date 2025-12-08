@@ -173,6 +173,7 @@ return { -- Autocompletion
             documentation = {
               auto_show = true, -- show documentation on select
             },
+            list_icon = "○",
           },
         },
         -- { name = "codeium" },
