@@ -73,12 +73,12 @@ return {
   },
   {
     -- Markdown Viewer
-    'MeanderingProgrammer/render-markdown.nvim',
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
     opts = {
       render_modes = true,
       sign = {
-        enabled = false
+        enabled = false,
       },
       -- heading = {
       --   width = "block",
@@ -88,17 +88,25 @@ return {
       --   width = "block",
       -- }
     },
+    config = function(_, opts)
+      local rm = require("render-markdown")
+      rm.setup(opts)
+      -- rm.disable()
+      vim.keymap.set("n", "<leader>cm", function()
+        rm.toggle()
+      end, { desc = "Toggle [M]arkdown Viewer" })
+    end,
   },
   {
     -- Lorem Ipsum Generator
-    'derektata/lorem.nvim',
+    "derektata/lorem.nvim",
     config = function()
-      require("lorem").opts {
+      require("lorem").opts({
         sentence_length = "mixed", -- using a default configuration
         comma_chance = 0.3, -- 30% chance to insert a comma
         max_commas = 2, -- maximum 2 commas per sentence
         debounce_ms = 300, -- default debounce time in milliseconds
-      }
-    end
-  }
+      })
+    end,
+  },
 }
