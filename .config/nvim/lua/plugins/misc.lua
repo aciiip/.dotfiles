@@ -91,7 +91,7 @@ return {
     config = function(_, opts)
       local rm = require("render-markdown")
       rm.setup(opts)
-      -- rm.disable()
+      rm.disable()
       vim.keymap.set("n", "<leader>cm", function()
         rm.toggle()
       end, { desc = "Toggle [M]arkdown Viewer" })
