@@ -78,7 +78,7 @@ return {
       cssls = {},
       tailwindcss = {
         -- The presence of tailwind.config.js will trigger the Tailwind CSS language server to start for the current project.
-        root_dir = require("lspconfig.util").root_pattern("tailwind.config.js")
+        root_dir = require("lspconfig.util").root_pattern("tailwind.config.js"),
       },
       eslint = {},
       dockerls = {},
@@ -92,6 +92,7 @@ return {
       -- volar = require("plugins.lsp.servers.volar"),
       ts_ls = require("plugins.lsp.servers.ts_ls"),
       -- vtsls = require("plugins.lsp.servers.vtsls"),
+      arduino_language_server = require("plugins.lsp.servers.arduino"),
     }
 
     -- Ensure the servers and tools above are installed
@@ -136,10 +137,22 @@ return {
 
     -- Without Mason LSP Config
     for server_name, config in pairs(servers) do
-      local server = servers[server_name] or {}
-      server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-      require("lspconfig")[server_name].setup(server)
-    end
+      local server_capabilities = vim.deepcopy(capabilities)
 
+      if server_name == "arduino_language_server" then
+        if server_capabilities.textDocument then
+          server_capabilities.textDocument.semanticTokens = nil
+        end
+        if server_capabilities.workspace then
+          server_capabilities.workspace.semanticTokens = nil
+        end
+      end
+
+      local final_opts = vim.tbl_deep_extend("force", {
+        capabilities = server_capabilities,
+      }, config or {})
+
+      require("lspconfig")[server_name].setup(final_opts)
+    end
   end,
 }
