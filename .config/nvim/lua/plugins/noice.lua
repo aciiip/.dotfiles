@@ -16,6 +16,9 @@ return -- lazy.nvim
   config = function()
     require("notify").setup({
       background_colour = "#000000",
+      render = "compact",
+      timeout = 250,
+      stages = "fade_in_slide_out",
     })
     require("noice").setup({
       lsp = {
