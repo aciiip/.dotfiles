@@ -2,8 +2,8 @@ vim.filetype.add({
   -- Detect and assign filetype based on the extension of the filename
   extension = {
     env = "dotenv",
+    log = "log",
   },
-  -- Detect and apply filetypes based on the entire filename
   filename = {
     [".env"] = "dotenv",
     ["env"] = "dotenv",
