@@ -77,8 +77,12 @@ return {
       html = require("plugins.lsp.servers.html"),
       cssls = {},
       tailwindcss = {
-        -- The presence of tailwind.config.js will trigger the Tailwind CSS language server to start for the current project.
-        root_dir = require("lspconfig.util").root_pattern("tailwind.config.js"),
+        root_dir = function(fname)
+          return vim.fs.root(
+            fname,
+            { "tailwind.config.js", "tailwind.config.ts", "postcss.config.js" }
+          )
+        end,
       },
       eslint = {},
       dockerls = {},
@@ -135,7 +139,7 @@ return {
     --   },
     -- })
 
-    -- Without Mason LSP Config
+    -- Neovim v0.11+
     for server_name, config in pairs(servers) do
       local server_capabilities = vim.deepcopy(capabilities)
 
@@ -152,7 +156,12 @@ return {
         capabilities = server_capabilities,
       }, config or {})
 
-      require("lspconfig")[server_name].setup(final_opts)
+      if vim.lsp.config and vim.lsp.config[server_name] then
+        vim.lsp.config[server_name] =
+          vim.tbl_deep_extend("force", vim.lsp.config[server_name] or {}, final_opts)
+      end
+
+      vim.lsp.enable(server_name)
     end
   end,
 }
